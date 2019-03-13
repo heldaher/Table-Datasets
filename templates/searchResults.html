@@ -12,31 +12,23 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
     </ul>
-{#    <form class="form-inline my-2 my-lg-0">#}
-{#      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">#}
-{#      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>#}
-{#    </form>#}
-
       <form class="form-inline my-2 my-lg-0" action="/searchResults/" method="GET">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-
   </div>
 </nav>
 
 <body>
     <div style="padding:23px">
         <h1>Search Results</h1><br><br>
-        {% for post in all_posts %}
+        {% for post in filtered_posts %}
             <div>
             <strong>Title</strong><br>
-{#            {{ post.title }} <br>#}
-                <a href="{% url 'singleTable' post.id %}">{{ post.title }}</a><br>
+            <a href="{% url 'singleTable' post.id %}">{{ post.title }}</a><br>
             <strong>Description</strong><br>
             {{ post.description }} <br>
-{#            {{post.data_html | safe}}#}
-                {{post.data_crop_html | safe}}
+            {{post.data_crop_html | safe}}
             <strong>Tags</strong><br>
             {{ post.keywords }} <br>
             <strong>Source</strong><br>

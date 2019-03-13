@@ -22,22 +22,18 @@
 <body>
     <div style="padding:23px">
         <h3>Add a dataset below (must be 'csv' file)</h3>
-
      <form action="/addPost/" method="post" enctype="multipart/form-data">{% csrf_token %}
          <label for="title">Title</label><br>
          <input type="text" name="title"/><br><br>
          <label for="description">Description (optional)</label><br>
          <input type="text" name="description"/><br>
-
          <label for="source">Source (optional)</label><br>
          <input type="text" name="source"/><br>
          <label for="keywords">Keywords (optional)</label><br>
          <input type="text" name="keywords"/><br><br>
-
          <input type="file" name="csv_file"/><br><br>
         <input type="submit" value="Add"/>
     </form>
-
     </div>
 </body>
 </html>

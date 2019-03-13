@@ -11,19 +11,6 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
-
-{#        {% if user.is_authenticated %}#}
-{#        <a class="nav-link" href="/accounts/logout/">Logout</a>#}
-{#        {% else %}#}
-{#        <a class="nav-link" href="/accounts/login/">Login</a>#}
-{#        {% endif %}#}
-{##}
-{#      <li class="nav-item">#}
-{#        <a class="nav-link" href="/accounts/login/">Login</a>#}
-{#      </li>#}
-{#      <li class="nav-item">#}
-{#        <a class="nav-link" href="/accounts/logout/">Logout</a>#}
-{#      </li>#}
     </ul>
        <form class="form-inline my-2 my-lg-0" action="/searchResults/" method="GET">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
@@ -36,29 +23,17 @@
 <body>
     <div style="padding:23px">
         <h1>{{ user.username }} - uploaded tables</h1><br><br>
-
         {% for post in posts.all %}
             <div>
             <strong>Title</strong><br>
-{#            {{ post.title }} <br>#}
-                <a href="{% url 'singleTable' post.id %}">{{ post.title }}</a><br>
+            <a href="{% url 'singleTable' post.id %}">{{ post.title }}</a><br>
             <strong>Description</strong><br>
             {{ post.description }} <br>
             {{post.data_crop_html | safe}}
-{#            need to make this look better#}
-{#            <p>iframe attempt</p>#}
-{#            will need to figure out how to display link to file #}
-{#              src = {{ post.dataset.file }}#}
-{#            <iframe width="560" height="315" src="{{ post.dataset.file }}" frameborder="0" allowfullscreen></iframe>#}
-{#correct below#}
-
-{#            problem is that below downloads instead of presents link#}
-{#            <iframe width="560" height="315" src="/media/csv_demo_one.csv" frameborder="0" allowfullscreen></iframe>#}
             <strong>Tags</strong><br>
             {{ post.keywords }} <br>
             <strong>Source</strong><br>
             {{ post.source }} <br>
-
             <a href="/media/{{ post.dataset }}">Download '{{ post.title }}' table</a><br>
             <form action="/deletePost/{{post.id}}/"
 					style="display: inline;"
