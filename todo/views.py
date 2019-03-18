@@ -9,6 +9,9 @@ import pandas as pd
 from pandas import DataFrame
 import django_filters
 import csv, io, codecs
+import datetime
+
+
 
 
 #VIEWS
@@ -44,14 +47,16 @@ def addPost(request):
 
 	if user:
 		title = request._post['title']
+		currentDT = datetime.datetime.now()
+		timestamp = currentDT.strftime("%Y-%m-%d %H:%M:%S")
 		description = request._post['description']
 		source = request._post['source']
 		keywords = request._post['keywords']
 		dataset = request.FILES['csv_file']
 		data = pd.read_csv(dataset)
 		cropped_dataset_a = data.iloc[:5, :4]
-		data_crop_html = cropped_dataset_a.to_html()
-		data_html = data.to_html()
+		data_crop_html = cropped_dataset_a.to_html(classes=["table", "table-bordered"])
+		data_html = data.to_html(classes=["table", "table-bordered"])
 		new_post = Post(title=title, description=description, source=source, keywords=keywords, dataset=dataset, data_crop_html=data_crop_html, data_html=data_html, poster=user)
 		new_post.save()
 		id = request.user.id
