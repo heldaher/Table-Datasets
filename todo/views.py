@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .models import Post
+from .models import Post, UserSettings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -42,11 +42,27 @@ def createPost(request):
 	return render(request, 'createpost.html')
 
 
+def updateSettings(request):
+	user = request.user
+
+	if user:
+		name = request._post['name']
+		profile_pic = request.FILES['profile_pic']
+
+		settings = UserSettings(name=name, profile_pic=profile_pic)
+		settings.save()
+
+		id = request.user.id
+		url = reverse('userPosts', args=[id])
+		return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/')
+
 def addPost(request):
 	user = request.user
 
 	if user:
-		title = request._post['title']
+		name = request._post['title']
 		currentDT = datetime.datetime.now()
 		timestamp = currentDT.strftime("%Y-%m-%d %H:%M:%S")
 		description = request._post['description']
@@ -70,7 +86,7 @@ def userPosts(request, user_id):
 	user = User.objects.get(pk=user_id)
 	context = {
 		"user": user,
-		"posts": user.tables.all()
+		"posts": user.tables.all(),
 	}
 	return render(request, "userposts.html", context)
 

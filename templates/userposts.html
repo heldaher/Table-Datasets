@@ -104,8 +104,9 @@
           <div class="card-body" style="padding:0">
             <div class="row align-items-start" style="padding:0em">
               <div class="col-sm-4">
-                <img src="https://i.ibb.co/vXNzP1s/aswath.jpg" style="border-radius: 3px 0px 0px 0px; object-fit: cover; width: 20em; height: 20em">
-              </div>
+                <!-- <img src=`{{post.profile_pic}}` data-jdenticon-value=`{{ post.poster }}` style="border-radius: 3px 0px 0px 0px; object-fit: cover; width: 20em; height: 20em"> -->
+                <svg  data-jdenticon-value=`{{ user.username }}` style="border-radius: 3px 0px 0px 0px; object-fit: cover; width: 20em; height: 20em"></svg>
+            </div>
               <div class="col" style="padding: 2em 3em 0em 0em">
                   <h3>Dr. Aswath Damodaran</h3>
                   <p>
@@ -245,6 +246,8 @@
             </i>
         </button>
     </div>
+
+    
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
