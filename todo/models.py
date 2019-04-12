@@ -22,12 +22,12 @@ class Post(models.Model):
 
 	poster = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tables')
 
-class UserSettings(models.Model):
-	profile_pic = models.ImageField(upload_to='profile', default='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
-	name = models.TextField(default="")
-	bio = models.TextField(default="")
-	website = models.TextField(default="")
-	saved = models.TextField(default="")
-	downloaded = models.TextField(default="")
+# class UserSettings(models.Model):
+# 	profile_pic = models.ImageField(upload_to='profile', default='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
+# 	name = models.TextField(default="")
+# 	bio = models.TextField(default="")
+# 	website = models.TextField(default="")
+# 	saved = models.TextField(default="")
+# 	downloaded = models.TextField(default="")
 
-	poster = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_attributes')
+# 	poster = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_attributes')

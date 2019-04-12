@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .models import Post, UserSettings
+from .models import Post
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -17,6 +17,7 @@ import datetime
 #VIEWS
 def index(request):
 	all_posts = Post.objects.all()
+
 	return render(request, 'index.html', {'all_posts': all_posts})
 
 
@@ -62,7 +63,7 @@ def addPost(request):
 	user = request.user
 
 	if user:
-		name = request._post['title']
+		title = request._post['title']
 		currentDT = datetime.datetime.now()
 		timestamp = currentDT.strftime("%Y-%m-%d %H:%M:%S")
 		description = request._post['description']
