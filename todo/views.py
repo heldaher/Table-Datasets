@@ -9,11 +9,15 @@ import pandas as pd
 from pandas import DataFrame
 import django_filters
 import csv, io, codecs
+import datetime
+
+
 
 
 #VIEWS
 def index(request):
 	all_posts = Post.objects.all()
+
 	return render(request, 'index.html', {'all_posts': all_posts})
 
 
@@ -39,19 +43,37 @@ def createPost(request):
 	return render(request, 'createpost.html')
 
 
+def updateSettings(request):
+	user = request.user
+
+	if user:
+		name = request._post['name']
+		profile_pic = request.FILES['profile_pic']
+
+		settings = UserSettings(name=name, profile_pic=profile_pic)
+		settings.save()
+
+		id = request.user.id
+		url = reverse('userPosts', args=[id])
+		return HttpResponseRedirect('/')
+	else:
+		return HttpResponseRedirect('/')
+
 def addPost(request):
 	user = request.user
 
 	if user:
 		title = request._post['title']
+		currentDT = datetime.datetime.now()
+		timestamp = currentDT.strftime("%Y-%m-%d %H:%M:%S")
 		description = request._post['description']
 		source = request._post['source']
 		keywords = request._post['keywords']
 		dataset = request.FILES['csv_file']
 		data = pd.read_csv(dataset)
 		cropped_dataset_a = data.iloc[:5, :4]
-		data_crop_html = cropped_dataset_a.to_html()
-		data_html = data.to_html()
+		data_crop_html = cropped_dataset_a.to_html(classes=["table", "table-bordered"])
+		data_html = data.to_html(classes=["table", "table-bordered"])
 		new_post = Post(title=title, description=description, source=source, keywords=keywords, dataset=dataset, data_crop_html=data_crop_html, data_html=data_html, poster=user)
 		new_post.save()
 		id = request.user.id
@@ -65,7 +87,7 @@ def userPosts(request, user_id):
 	user = User.objects.get(pk=user_id)
 	context = {
 		"user": user,
-		"posts": user.tables.all()
+		"posts": user.tables.all(),
 	}
 	return render(request, "userposts.html", context)
 

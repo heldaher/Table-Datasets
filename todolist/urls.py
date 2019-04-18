@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from todo.views import register, addPost, createPost, deletePost, searchResults
+from todo.views import register, addPost, createPost, deletePost, searchResults, updateSettings
 # from todo.views import addTodo, deleteTodo, subItemView, addSubItem,
 #  deleteSubItem, register, addPost, createPost, deletePost
 
@@ -31,6 +31,7 @@ urlpatterns = [
     # path('deleteSubItem/<int:subItem_id>/', deleteSubItem),
     #new stuff
     path('accounts/', include('django.contrib.auth.urls')),
+    path('updateSettings/', updateSettings),
     path('', include('todo.urls')),
     path('register/', register),
     #new stuff two
